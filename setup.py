@@ -1,8 +1,6 @@
 import os
 import sys
 import subprocess
-import multiprocessing
-import logging
 from setuptools import setup, find_packages
 from distutils.cmd import Command
 
