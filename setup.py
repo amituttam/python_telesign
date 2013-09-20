@@ -1,6 +1,9 @@
-import os, sys, subprocess
-import multiprocessing, logging
-from setuptools import setup, find_packages 
+import os
+import sys
+import subprocess
+import multiprocessing
+import logging
+from setuptools import setup, find_packages
 from distutils.cmd import Command
 
 
@@ -15,7 +18,12 @@ try:
 finally:
     f.close()
 
+
 class doc(Command):
+    """
+    The **doc** class generates the documentation.
+
+    """
 
     description = "generate or test documentation"
 
@@ -43,15 +51,15 @@ class doc(Command):
             except:
                 pass
 
-        status = subprocess.call(["sphinx-build", "-E", "-D", "version=%s" % version,
-                                  "-b", mode, "doc", path])
+        status = subprocess.call(["sphinx-build", "-E", "-D",
+                                  "version=%s" % version, "-b",
+                                  mode, "doc", path])
 
         if status:
             raise RuntimeError("documentation step '%s' failed" % (mode,))
 
         sys.stdout.write("\nDocumentation step '%s' performed, results here:\n"
                          "   %s/\n" % (mode, path))
-
 
 
 setup(name='telesign',
@@ -69,7 +77,7 @@ setup(name='telesign',
           "Programming Language :: Python :: 2.7",
           "Topic :: Software Development :: Libraries :: Python Modules",
           "Topic :: Communications :: Telephony",
-      ], 
+      ],
       long_description=readme_content,
       keywords = 'telesign, sms',
       author = 'TeleSign Corp.',
@@ -80,5 +88,4 @@ setup(name='telesign',
 
       packages=find_packages(),
       cmdclass={"doc": doc},
-     )
-
+      )
